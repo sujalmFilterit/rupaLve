@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Do you love me? ❤️</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --pink-soft: #ffb6c1;
+      --pink-pastel: #ffc0cb;
+      --pink-deep: #ff69b4;
+      --rose: #f8b4c4;
+      --cream: #fff5f7;
+      --white: #ffffff;
+      --shadow: rgba(255, 105, 180, 0.25);
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(135deg, #ffe4ec 0%, #ffd1dc 25%, #ffb6c1 50%, #ffc0cb 75%, #ffe4ec 100%);
+      background-size: 400% 400%;
+      animation: gradientShift 8s ease infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    /* Floating hearts background */
+    .hearts-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 1.5rem;
+      opacity: 0.3;
+      animation: floatHeart 6s ease-in-out infinite;
+    }
+
+    .heart:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
+    .heart:nth-child(2) { left: 80%; top: 15%; animation-delay: 1s; }
+    .heart:nth-child(3) { left: 25%; top: 70%; animation-delay: 2s; }
+    .heart:nth-child(4) { left: 70%; top: 65%; animation-delay: 0.5s; }
+    .heart:nth-child(5) { left: 50%; top: 40%; animation-delay: 1.5s; }
+    .heart:nth-child(6) { left: 15%; top: 50%; animation-delay: 2.5s; }
+    .heart:nth-child(7) { left: 85%; top: 35%; animation-delay: 0.8s; }
+    .heart:nth-child(8) { left: 40%; top: 85%; animation-delay: 1.2s; }
+    .heart:nth-child(9) { left: 60%; top: 10%; animation-delay: 2s; }
+    .heart:nth-child(10) { left: 5%; top: 80%; animation-delay: 1.8s; }
+
+    @keyframes floatHeart {
+      0%, 100% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.25;
+      }
+      25% {
+        transform: translate(10px, -15px) scale(1.1);
+        opacity: 0.4;
+      }
+      50% {
+        transform: translate(-5px, 10px) scale(0.95);
+        opacity: 0.3;
+      }
+      75% {
+        transform: translate(15px, 5px) scale(1.05);
+        opacity: 0.35;
+      }
+    }
+
+    .card-container {
+      position: relative;
+      z-index: 1;
+      width: 90%;
+      max-width: 520px;
+      padding: 2rem;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: 24px;
+      padding: 2.5rem 2.25rem;
+      box-shadow: 0 20px 60px var(--shadow), 0 0 0 1px rgba(255, 182, 193, 0.3);
+      text-align: center;
+      animation: cardPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes cardPop {
+      from {
+        opacity: 0;
+        transform: scale(0.8) translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .card h1 {
+      color: #d64d76;
+      font-size: clamp(1.5rem, 5vw, 2rem);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      line-height: 1.4;
+    }
+
+    .card .subtitle {
+      color: #b85c7a;
+      font-size: clamp(0.95rem, 2.5vw, 1.05rem);
+      margin-bottom: 2rem;
+      line-height: 1.5;
+    }
+
+    .buttons-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+      justify-items: center;
+      min-height: 140px;
+    }
+
+    .btn-yes-wrap {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .no-btn-wrap {
+      position: relative;
+      width: 100%;
+      height: 140px;
+      min-height: 140px;
+    }
+
+    .btn {
+      font-family: 'Nunito', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      padding: 0.85rem 1.8rem;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      position: relative;
+    }
+
+    .btn-yes {
+      background: linear-gradient(135deg, #ff69b4, #ff1493);
+      color: white;
+      box-shadow: 0 6px 20px rgba(255, 105, 180, 0.4);
+    }
+
+    .btn-yes:hover {
+      transform: scale(1.08);
+      box-shadow: 0 8px 28px rgba(255, 105, 180, 0.5);
+    }
+
+    .btn-yes:active {
+      transform: scale(1.02);
+    }
+
+    .btn-no {
+      background: linear-gradient(135deg, #ffb6c1, #ffc0cb);
+      color: #c71585;
+      box-shadow: 0 6px 20px rgba(255, 182, 193, 0.5);
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      transition: left 0.12s ease-out, top 0.12s ease-out;
+      padding: 0.5rem 1.8rem;
+      font-size: 0.95rem;
+    }
+
+    .btn-no:hover {
+      transform: translate(-50%, -50%) scale(1.05);
+    }
+
+    /* Modal overlay */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(214, 77, 118, 0.2);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+      padding: 1rem;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal {
+      background: var(--white);
+      border-radius: 24px;
+      padding: 2.5rem;
+      max-width: 380px;
+      width: 100%;
+      box-shadow: 0 25px 70px var(--shadow), 0 0 0 1px rgba(255, 182, 193, 0.3);
+      text-align: center;
+      transform: scale(0.7) translateY(30px);
+      opacity: 0;
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+    }
+
+    .modal-overlay.open .modal {
+      transform: scale(1) translateY(0);
+      opacity: 1;
+    }
+
+    .modal h2 {
+      color: #d64d76;
+      font-size: 1.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .modal p {
+      color: #8b4a5c;
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .modal .heart-burst {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      animation: pulse 1s ease infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+
+    .modal-close {
+      background: linear-gradient(135deg, #ff69b4, #ff1493);
+      color: white;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 50px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .modal-close:hover {
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 2rem 1.5rem;
+      }
+      .buttons-wrap {
+        gap: 1.25rem;
+        min-height: 120px;
+      }
+      .no-btn-wrap {
+        height: 120px;
+        min-height: 120px;
+      }
+      .btn {
+        padding: 0.75rem 1.4rem;
+        font-size: 1rem;
+      }
+    }
+
+    /* Celebration cracker burst */
+    .celebration-wrap {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 105;
+      overflow: hidden;
+    }
+
+    .celebration-wrap .ribbon {
+      position: absolute;
+      border-radius: 2px;
+      animation: burstOut 2.2s ease-out forwards;
+      opacity: 0;
+    }
+
+    .celebration-wrap .ribbon.ribbon-long {
+      width: 8px;
+      height: 24px;
+    }
+
+    .celebration-wrap .ribbon.ribbon-short {
+      width: 10px;
+      height: 10px;
+    }
+
+    @keyframes burstOut {
+      0% {
+        transform: translate(0, 0) scale(0.3) rotate(0deg);
+        opacity: 1;
+      }
+      15% {
+        opacity: 1;
+      }
+      100% {
+        transform: translate(var(--tx), var(--ty)) scale(1) rotate(var(--rot));
+        opacity: 0.6;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="hearts-bg" aria-hidden="true">
+    <span class="heart">💕</span>
+    <span class="heart">❤️</span>
+    <span class="heart">💗</span>
+    <span class="heart">💖</span>
+    <span class="heart">💕</span>
+    <span class="heart">❤️</span>
+    <span class="heart">💗</span>
+    <span class="heart">💖</span>
+    <span class="heart">💕</span>
+    <span class="heart">❤️</span>
+  </div>
+
+  <div class="card-container">
+    <div class="card">
+      <h1>Do you love me? ❤️</h1>
+      <p class="subtitle">You mean the world to me. Say yes and make my day — or try to catch the No button if you dare!</p>
+      <div class="buttons-wrap">
+        <div class="btn-yes-wrap">
+          <button type="button" class="btn btn-yes" id="btnYes">Yes 💖</button>
+        </div>
+        <div class="no-btn-wrap">
+          <button type="button" class="btn btn-no" id="btnNo">No 😢</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="celebration-wrap" id="celebrationWrap" aria-hidden="true"></div>
+
+  <div class="modal-overlay" id="modal" role="dialog" aria-labelledby="modalTitle" aria-modal="true">
+    <div class="modal">
+      <div class="heart-burst">💕</div>
+      <h2 id="modalTitle">I knew it ❤️</h2>
+      <p>You make my world brighter, my heart happier, and my life more beautiful.</p>
+      <button type="button" class="modal-close" id="modalClose">Aww, close</button>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const btnYes = document.getElementById('btnYes');
+      const btnNo = document.getElementById('btnNo');
+      const modal = document.getElementById('modal');
+      const modalClose = document.getElementById('modalClose');
+      const noWrap = document.querySelector('.no-btn-wrap');
+
+      if (!noWrap || !btnNo || !btnYes) return;
+
+      function getNoButtonSize() {
+        return { w: btnNo.offsetWidth, h: btnNo.offsetHeight };
+      }
+
+      let lastEdge = -1;
+
+      function moveNoButton() {
+        const wr = noWrap.getBoundingClientRect();
+        const size = getNoButtonSize();
+        const halfW = size.w / 2;
+        const halfH = size.h / 2;
+        const minX = halfW;
+        const maxX = wr.width - halfW;
+        const minY = halfH;
+        const maxY = wr.height - halfH;
+        const rangeX = maxX - minX;
+        const rangeY = maxY - minY;
+        if (rangeX <= 0 || rangeY <= 0) return;
+        let dir = Math.floor(Math.random() * 4);
+        if (dir === lastEdge) dir = (dir + 1) % 4;
+        lastEdge = dir;
+        let x, y;
+        switch (dir) {
+          case 0: x = minX; y = minY + Math.random() * rangeY; break;
+          case 1: x = maxX; y = minY + Math.random() * rangeY; break;
+          case 2: x = minX + Math.random() * rangeX; y = minY; break;
+          default: x = minX + Math.random() * rangeX; y = maxY; break;
+        }
+        btnNo.style.left = x + 'px';
+        btnNo.style.top = y + 'px';
+        btnNo.style.transform = 'translate(-50%, -50%)';
+      }
+
+      function centerNoButton() {
+        if (!noWrap) return;
+        const wr = noWrap.getBoundingClientRect();
+        btnNo.style.left = (wr.width / 2) + 'px';
+        btnNo.style.top = (wr.height / 2) + 'px';
+        btnNo.style.transform = 'translate(-50%, -50%)';
+      }
+
+      centerNoButton();
+      window.addEventListener('resize', centerNoButton);
+
+      btnNo.addEventListener('mouseenter', moveNoButton);
+      btnNo.addEventListener('click', function (e) {
+        e.preventDefault();
+        moveNoButton();
+      });
+
+      btnNo.addEventListener('touchstart', function (e) {
+        e.preventDefault();
+        moveNoButton();
+      }, { passive: false });
+
+      function triggerCrackerBurst() {
+        const wrap = document.getElementById('celebrationWrap');
+        if (!wrap) return;
+        wrap.innerHTML = '';
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2;
+        const colors = ['#ff69b4', '#ff1493', '#ffb6c1', '#ffc0cb', '#ffd700', '#ffeb3b', '#fff', '#f8b4c4', '#e91e63', '#f06292'];
+        const count = 55;
+        for (let i = 0; i < count; i++) {
+          const el = document.createElement('div');
+          el.className = 'ribbon ' + (Math.random() > 0.4 ? 'ribbon-long' : 'ribbon-short');
+          const angle = Math.random() * Math.PI * 2;
+          const dist = 120 + Math.random() * 280;
+          const tx = Math.cos(angle) * dist + (Math.random() * 80 - 40);
+          const ty = Math.sin(angle) * dist + (Math.random() * 80 - 40);
+          const rot = (Math.random() * 2 - 1) * 720;
+          el.style.left = centerX + 'px';
+          el.style.top = centerY + 'px';
+          el.style.setProperty('--tx', tx + 'px');
+          el.style.setProperty('--ty', ty + 'px');
+          el.style.setProperty('--rot', rot + 'deg');
+          el.style.background = colors[Math.floor(Math.random() * colors.length)];
+          wrap.appendChild(el);
+        }
+        setTimeout(function () {
+          wrap.innerHTML = '';
+        }, 2300);
+      }
+
+      btnYes.addEventListener('click', function () {
+        triggerCrackerBurst();
+        modal.classList.add('open');
+      });
+
+      modalClose.addEventListener('click', function () {
+        modal.classList.remove('open');
+      });
+
+      modal.addEventListener('click', function (e) {
+        if (e.target === modal) {
+          modal.classList.remove('open');
+        }
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && modal.classList.contains('open')) {
+          modal.classList.remove('open');
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
