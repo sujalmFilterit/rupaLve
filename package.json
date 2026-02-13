@@ -1,0 +1,17 @@
+{
+  "name": "valentine-confession",
+  "version": "1.0.0",
+  "description": "A romantic Valentine's confession page",
+  "main": "index.html",
+  "scripts": {
+    "build": "echo \"Build successful\"",
+    "dev": "echo \"Static HTML site\""
+  },
+  "keywords": [
+    "valentine",
+    "confession",
+    "romantic"
+  ],
+  "author": "",
+  "license": "MIT"
+}
